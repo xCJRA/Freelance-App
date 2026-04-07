@@ -22,7 +22,11 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'cliente_id',
+        array(
+            'name'  => 'cliente_id',
+            'label' => 'Cliente',
+            'value' => Utilerias::getName($model->cliente_id,'nombre',new Clientes),
+        ),
 		'nombre',
 		'descripcion',
 		'fecha_inicio',

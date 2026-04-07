@@ -32,7 +32,7 @@ class ClientesController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','listar'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -169,5 +169,25 @@ class ClientesController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+	public function actionListar(){
+		if (isset($_GET['term'])) {
+			$term = $_GET['term'];
+			$criteria = new CDbCriteria();
+			$criteria->compare('nombre', $term, true);
+			$clientes = Clientes::model()->findAll($criteria);
+
+			$results = array();
+			foreach ($clientes as $cliente) {
+				$results[] = array(
+					'id'    => $cliente->id,
+					'label' => $cliente->nombre,
+					'value' => $cliente->nombre,
+				);
+			}
+			echo CJSON::encode($results);
+		}
+		Yii::app()->end();
 	}
 }

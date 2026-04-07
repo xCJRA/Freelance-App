@@ -21,6 +21,7 @@
  */
 class Proyectos extends CActiveRecord
 {
+	public $nombreCliente;
 	/**
 	 * @return string the associated database table name
 	 */
