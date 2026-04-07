@@ -32,8 +32,6 @@
 				array('label'=>'Inicio', 'url'=>array('/site/index')),
 				array('label'=>'Clientes', 'url'=>array('/clientes/index')),
 				array('label'=>'Proyectos', 'url'=>array('/proyectos/index')),
-				array('label'=>'Tareas', 'url'=>array('/tareas/index')),
-				array('label'=>'Tiempos', 'url'=>array('/tiempos/index')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),

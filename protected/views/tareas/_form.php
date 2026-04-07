@@ -42,19 +42,6 @@
 		<?php echo $form->textField($model,'horas_estimadas',array('size'=>10,'maxlength'=>10)); ?>
 		<?php echo $form->error($model,'horas_estimadas'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'estado'); ?>
-		<?php echo $form->textField($model,'estado',array('size'=>1,'maxlength'=>1)); ?>
-		<?php echo $form->error($model,'estado'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'created_at'); ?>
-		<?php echo $form->textField($model,'created_at'); ?>
-		<?php echo $form->error($model,'created_at'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
