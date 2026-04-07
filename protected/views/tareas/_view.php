@@ -10,7 +10,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('proyecto_id')); ?>:</b>
-	<?php echo CHtml::encode($data->proyecto_id); ?>
+	<?php echo Utilerias::getLink($data->proyecto_id, 'Proyectos', 'proyectos'); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('nombre')); ?>:</b>
@@ -28,10 +28,4 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('estado')); ?>:</b>
 	<?php echo CHtml::encode($data->estado); ?>
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created_at')); ?>:</b>
-	<?php echo CHtml::encode($data->created_at); ?>
-	<br />
-
-
 </div>

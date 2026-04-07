@@ -18,4 +18,13 @@ class Utilerias extends CActiveRecord
 		}
 		return $retorno;
 	}
+	//Función generica para obtener un link que redirecciona al módulo solicitado desde el id.
+	public static function getLink($id, $model, $controller, $action = 'view'){
+		$retorno = '-';
+		$modelo = $model::model()->findByPK($id);
+		if($modelo){
+			$retorno = CHtml::link($modelo->nombre, array("$controller/$action","id"=>$modelo->id));
+		}
+		return $retorno;
+	}
 }

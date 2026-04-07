@@ -8,10 +8,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Tareas', 'url'=>array('index')),
-	array('label'=>'Create Tareas', 'url'=>array('create')),
-	array('label'=>'Update Tareas', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Tareas', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Ver Tareas', 'url'=>array('index')),
+	array('label'=>'Editar Tarea', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Eliminar Tarea', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Tareas', 'url'=>array('admin')),
 );
 ?>
@@ -22,7 +21,12 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'proyecto_id',
+        array(
+            'name'  => 'proyecto_id',
+            'label' => 'Proyecto',
+			'type'  => 'raw',
+            'value' => Utilerias::getLink($model->proyecto_id, 'Proyectos', 'proyectos'),
+        ),
 		'nombre',
 		'descripcion',
 		'horas_estimadas',

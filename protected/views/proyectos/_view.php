@@ -10,7 +10,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cliente_id')); ?>:</b>
-	<?php echo CHtml::encode(Utilerias::getName($data->cliente_id,'nombre',new Clientes)); ?>
+	<?php echo Utilerias::getLink($data->cliente_id, 'Clientes', 'clientes'); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('nombre')); ?>:</b>

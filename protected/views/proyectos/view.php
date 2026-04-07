@@ -27,7 +27,8 @@ $this->menu=array(
         array(
             'name'  => 'cliente_id',
             'label' => 'Cliente',
-            'value' => Utilerias::getName($model->cliente_id, 'nombre', new Clientes),
+			'type'  => 'raw',
+            'value' => Utilerias::getLink($model->cliente_id, 'Clientes', 'clientes'),
         ),
 		'nombre',
 		'descripcion',
