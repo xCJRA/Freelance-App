@@ -1,0 +1,18 @@
+{
+    "name": "cesar/tks-freelance",
+    "require": {
+        "phpmailer/phpmailer": "^7.0",
+        "tecnickcom/tcpdf": "^6.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cesar\\TksFreelance\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Cesar Reyes",
+            "email": "cesarjreyesa1@gmail.com"
+        }
+    ]
+}
