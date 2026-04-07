@@ -14,14 +14,14 @@
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
 )); ?>
-
+	<?php echo $form->hiddenField($model, 'proyecto_id'); ?>
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'proyecto_id'); ?>
-		<?php echo $form->textField($model,'proyecto_id'); ?>
+		<?php echo $form->textField($model,'proyecto_nombre',array('readonly'=>true)); ?>
 		<?php echo $form->error($model,'proyecto_id'); ?>
 	</div>
 

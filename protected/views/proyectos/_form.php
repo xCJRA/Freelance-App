@@ -89,21 +89,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'estado'); ?>
-		<?php echo $form->textField($model,'estado',array('size'=>1,'maxlength'=>1)); ?>
-		<?php echo $form->error($model,'estado'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'tarifa_base'); ?>
 		<?php echo $form->textField($model,'tarifa_base',array('size'=>10,'maxlength'=>10)); ?>
 		<?php echo $form->error($model,'tarifa_base'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'created_at'); ?>
-		<?php echo $form->textField($model,'created_at'); ?>
-		<?php echo $form->error($model,'created_at'); ?>
 	</div>
 
 	<div class="row buttons">

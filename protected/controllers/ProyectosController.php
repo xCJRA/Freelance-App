@@ -66,7 +66,10 @@ class ProyectosController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
+		if(isset($_GET['cliente_id'])){
+			$model->cliente_id = $_GET['cliente_id'];
+			$model->nombreCliente = Utilerias::getName($model->cliente_id,'nombre',new Clientes());
+		}
 		if(isset($_POST['Proyectos']))
 		{
 			$model->attributes=$_POST['Proyectos'];
@@ -122,7 +125,17 @@ class ProyectosController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Proyectos');
+		$criteria = new CDbCriteria;
+
+		// filtrar por cliente_id si viene por GET
+		if (isset($_GET['cliente_id']) && $_GET['cliente_id'] > 0) {
+			$criteria->compare('cliente_id', $_GET['cliente_id']);
+		}
+
+		$dataProvider = new CActiveDataProvider('Proyectos', array(
+			'criteria'=>$criteria,
+		));
+
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

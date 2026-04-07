@@ -13,6 +13,8 @@ $this->menu=array(
 	array('label'=>'Update Proyectos', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete Proyectos', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Proyectos', 'url'=>array('admin')),
+	array('label'=>'Asignar tarea', 'url'=>array('tareas/create', 'proyecto_id'=>$model->id)),
+	array('label'=>'Ver tareas', 'url'=>array('tareas/index', 'proyecto_id'=>$model->id)),
 );
 ?>
 

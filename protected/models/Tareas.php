@@ -18,6 +18,7 @@
  */
 class Tareas extends CActiveRecord
 {
+	public $proyecto_nombre;
 	/**
 	 * @return string the associated database table name
 	 */

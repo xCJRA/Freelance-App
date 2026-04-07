@@ -13,6 +13,8 @@ $this->menu=array(
 	array('label'=>'Update Clientes', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete Clientes', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Clientes', 'url'=>array('admin')),
+	array('label'=>'Ver proyectos', 'url'=>array('proyectos/index','cliente_id'=>$model->id)),
+	array('label'=>'Crear proyectos', 'url'=>array('proyectos/create','cliente_id'=>$model->id)),
 );
 ?>
 
