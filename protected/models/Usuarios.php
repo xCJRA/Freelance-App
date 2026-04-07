@@ -77,10 +77,7 @@ class Usuarios extends CActiveRecord
             array('id, username, email, nombre, apellido, rol, estado', 'safe', 'on' => 'search'),
         );
     }
-
-    // =========================================================
-    //  RELACIONES (agregar según necesites)
-    // =========================================================
+    
     public function relations()
     {
         return array(
