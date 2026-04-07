@@ -27,6 +27,19 @@ class Cotizaciones extends CActiveRecord
 		return 'cotizaciones';
 	}
 
+    /**
+     * Aquí adjuntamos el behavior de auditoría.
+     * Con solo estas líneas, este modelo queda completamente auditado.
+     */
+    public function behaviors()
+    {
+        return array(
+            'audit' => array(
+                'class' => 'AuditBehavior',
+            ),
+        );
+    }
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */

@@ -36,6 +36,19 @@ class Usuarios extends CActiveRecord
         return 'usuarios';
     }
 
+    /**
+     * Aquí adjuntamos el behavior de auditoría.
+     * Con solo estas líneas, este modelo queda completamente auditado.
+     */
+    public function behaviors()
+    {
+        return array(
+            'audit' => array(
+                'class' => 'AuditBehavior',
+            ),
+        );
+    }
+
     // =========================================================
     //  REGLAS DE VALIDACIÓN
     // =========================================================
