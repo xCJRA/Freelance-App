@@ -3,7 +3,7 @@
 /* @var $model Catalogos */
 
 $this->breadcrumbs=array(
-	'Catalogoses'=>array('index'),
+	'Catalogos'=>array('index'),
 	'Manage',
 );
 

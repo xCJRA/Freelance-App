@@ -10,7 +10,7 @@
  * @property string  $nombre
  * @property string  $apellido
  * @property string  $rol
- * @property integer $activo
+ * @property integer $estado
  * @property string  $ultimo_login
  * @property integer $intentos_fallidos
  * @property string  $bloqueado_hasta
@@ -64,8 +64,7 @@ class Usuarios extends CActiveRecord
             array('email',    'unique'),
 
             // Valores permitidos
-            array('rol',    'in', 'range' => array('admin', 'user', 'moderador')),
-            array('activo', 'numerical', 'integerOnly' => true),
+            array('rol',    'in', 'range' => array('ADM', 'USER', 'MOD')),
 
             // Confirmación de contraseña
             array('password_repeat', 'compare',
@@ -75,7 +74,7 @@ class Usuarios extends CActiveRecord
             ),
 
             // Búsqueda (no valida, solo filtra)
-            array('id, username, email, nombre, apellido, rol, activo', 'safe', 'on' => 'search'),
+            array('id, username, email, nombre, apellido, rol, estado', 'safe', 'on' => 'search'),
         );
     }
 
@@ -104,7 +103,7 @@ class Usuarios extends CActiveRecord
             'nombre'            => 'Nombre',
             'apellido'          => 'Apellido',
             'rol'               => 'Rol',
-            'activo'            => 'Activo',
+            'estado'            => 'Estatus',
             'ultimo_login'      => 'Último Login',
             'intentos_fallidos' => 'Intentos Fallidos',
             'created_at'        => 'Creado',
@@ -177,7 +176,7 @@ class Usuarios extends CActiveRecord
         $criteria->compare('nombre',   $this->nombre,   true);
         $criteria->compare('apellido', $this->apellido, true);
         $criteria->compare('rol',      $this->rol,      true);
-        $criteria->compare('activo',   $this->activo);
+        $criteria->compare('estado',   $this->estado);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

@@ -3,7 +3,7 @@
 /* @var $model Tiempos */
 
 $this->breadcrumbs=array(
-	'Tiemposes'=>array('index'),
+	'Tiempos'=>array('index'),
 	'Create',
 );
 
