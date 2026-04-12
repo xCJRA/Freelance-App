@@ -70,3 +70,8 @@ El sistema está diseñado para escalar con los siguientes módulos:
 - Seguimiento de pagos
 
 ---
+## 👨‍💻 Autor
+
+**César José Reyes Alonso**
+Backend Developer
+🔗 LinkedIn: https://www.linkedin.com/in/xCJRA/
