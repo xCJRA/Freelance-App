@@ -64,6 +64,19 @@ class Catalogos extends CActiveRecord
 		);
 	}
 
+    /**
+     * Aquí adjuntamos el behavior de auditoría.
+     * Con solo estas líneas, este modelo queda completamente auditado.
+     */
+    public function behaviors()
+    {
+        return array(
+            'audit' => array(
+                'class' => 'AuditBehavior',
+            ),
+        );
+    }
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *

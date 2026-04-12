@@ -193,4 +193,43 @@ class Usuarios extends CActiveRecord
             'pagination' => array('pageSize' => 20),
         ));
     }
+    /**
+     * Asigna un rol RBAC al usuario
+     * Se llama después de guardar el usuario
+     */
+    public function asignarRol($rol)
+    {
+        $auth = Yii::app()->authManager;
+
+        // Primero revocar cualquier rol anterior
+        $auth->revoke($rol, $this->id);
+
+        // Asignar el nuevo rol
+        $auth->assign($rol, $this->id);
+    }
+
+    /**
+     * Obtener el rol actual del usuario desde RBAC
+     */
+    public function getRolActual()
+    {
+        $auth  = Yii::app()->authManager;
+        $roles = array('admin', 'moderador', 'usuario');
+
+        foreach ($roles as $rol) {
+            if ($auth->isAssigned($rol, $this->id)) {
+                return $rol;
+            }
+        }
+        return null;
+    }
+
+    protected function afterSave()
+    {
+        parent::afterSave();
+        // Si es nuevo registro, asignar rol seleccionado en RBAC
+        if ($this->isNewRecord) {
+            $this->asignarRol($this->rol); // $this->rol = 'admin','moderador','usuario'
+        }
+    }
 }
