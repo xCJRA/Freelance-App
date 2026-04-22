@@ -85,8 +85,8 @@ class Proyectos extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'cliente_id' => 'Cliente',
-			'nombre' => 'Nombre',
-			'descripcion' => 'Descripcion',
+			'nombre' => 'Nombre del proyecto',
+			'descripcion' => 'Descripcion del proyecto',
 			'fecha_inicio' => 'Fecha Inicio',
 			'fecha_fin' => 'Fecha Fin',
 			'estado' => 'Estado',

@@ -1,34 +1,45 @@
 <?php
-/* @var $this ClientesController */
-/* @var $model Clientes */
-
 $this->breadcrumbs=array(
 	'Clientes'=>array('index'),
 	$model->id,
 );
-
-$this->menu=array(
-	array('label'=>'List Clientes', 'url'=>array('index')),
-	array('label'=>'Create Clientes', 'url'=>array('create')),
-	array('label'=>'Update Clientes', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Clientes', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Clientes', 'url'=>array('admin')),
-	array('label'=>'Ver proyectos', 'url'=>array('proyectos/index','cliente_id'=>$model->id)),
-	array('label'=>'Crear proyectos', 'url'=>array('proyectos/create','cliente_id'=>$model->id)),
-);
 ?>
-
-<h1>View Clientes #<?php echo $model->id; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'nombre',
-		'email',
-		'telefono',
-		'rs',
-		'notas',
-		'estado',
-	),
-)); ?>
+<div class="card">
+	<!--NAVS-->  
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		<li class="nav-item" role="presentation">
+			<button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">
+				Información
+			</button>
+		</li>
+	</ul>
+	<br>
+	<!--HEADER-->  
+	<div class="card-body d-flex justify-content-between align-items-center">
+		<h4 class="card-title mb-0">Cliente #<?php echo $model->id; ?></h4>
+		<div class="card-tools">
+			<div class="dropdown">
+				<button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="bi bi-card-list"></i>
+				</button>
+				<ul class="dropdown-menu dropdown-menu-end">
+					<li> <?php echo CHtml::link('<i class="bi bi-plus-lg me-2"></i>Administrar clientes', array('clientes/create'), array('class'=>'dropdown-item','target'=>'_blank')); ?> </li>
+					<li> <?php echo CHtml::link('<i class="bi bi-pen me-2"></i>Editar cliente', array('clientes/update','id'=>$model->id), array('class'=>'dropdown-item')); ?> </li>
+					<li> <?php echo CHtml::link('<i class="bi bi-file-earmark-plus me-2"></i>Crear proyecto', array('proyectos/create','cliente_id'=>$model->id), array('class'=>'dropdown-item','target'=>'_blank')); ?> </li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<?php $this->widget('zii.widgets.CDetailView', array(
+		'data'=>$model,
+		'attributes'=>array(
+			'id',
+			'nombre',
+			'email',
+			'telefono',
+			'rs',
+			'notas',
+			'estado',
+		),
+	)); ?>
+</div>
