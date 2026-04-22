@@ -14,7 +14,16 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css">
-
+	<!--ICONOS-->
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-icons.min.css">
+	<!-- SweetAlert2 -->
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/sweetalert2@11.js"></script>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css">
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.bundle.min.js"></script>
+	<!-- Principal -->
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
+	
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
@@ -30,8 +39,8 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Inicio', 'url'=>array('/site/index')),
-				array('label'=>'Clientes', 'url'=>array('/clientes/index')),
-				array('label'=>'Proyectos', 'url'=>array('/proyectos/index')),
+				array('label'=>'Clientes', 'url'=>array('/clientes/admin')),
+				array('label'=>'Proyectos', 'url'=>array('/proyectos/admin')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
@@ -42,9 +51,9 @@
 			'links'=>$this->breadcrumbs,
 		)); ?><!-- breadcrumbs -->
 	<?php endif?>
-
+	
 	<?php echo $content; ?>
-
+	
 	<div class="clear"></div>
 
 	<div id="footer">

@@ -3,51 +3,79 @@
 /* @var $model LoginForm */
 /* @var $form CActiveForm  */
 
-$this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
-	'Login',
-);
+$this->pageTitle = Yii::app()->name . ' - Login';
+$this->breadcrumbs = array('Login');
 ?>
 
-<h1>Login</h1>
+<div class="min-vh-100 d-flex align-items-center justify-content-center bg-body-tertiary">
+  <div class="card shadow-sm border-0 rounded-3" style="width: 100%; max-width: 400px;">
+    <div class="card-body p-4 p-md-5">
 
-<p>Please fill out the following form with your login credentials:</p>
+      <!-- Cabecera -->
+      <h1 class="h4 fw-semibold mb-1">Iniciar sesión</h1>
+      <p class="text-body-secondary small mb-4">Ingresa tus credenciales para continuar.</p>
 
-<div class="form">
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'login-form',
-	'enableClientValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),
-)); ?>
+      <?php $form = $this->beginWidget('CActiveForm', array(
+        'id'                     => 'login-form',
+        'enableClientValidation' => true,
+        'clientOptions'          => array('validateOnSubmit' => true),
+      )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+        <!-- Username -->
+        <div class="mb-3">
+          <?php echo $form->labelEx($model, 'username', array(
+            'class' => 'form-label fw-medium small',
+          )); ?>
+          <?php echo $form->textField($model, 'username', array(
+            'class'        => 'form-control',
+            'placeholder'  => 'Tu usuario',
+            'autocomplete' => 'username',
+          )); ?>
+          <?php echo $form->error($model, 'username', array(
+            'class' => 'text-danger small mt-1',
+          )); ?>
+        </div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textField($model,'username'); ?>
-		<?php echo $form->error($model,'username'); ?>
-	</div>
+        <!-- Password -->
+        <div class="mb-2">
+          <?php echo $form->labelEx($model, 'password', array(
+            'class' => 'form-label fw-medium small',
+          )); ?>
+          <?php echo $form->passwordField($model, 'password', array(
+            'class'        => 'form-control',
+            'placeholder'  => '••••••••',
+            'autocomplete' => 'current-password',
+          )); ?>
+          <?php echo $form->error($model, 'password', array(
+            'class' => 'text-danger small mt-1',
+          )); ?>
+        </div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password'); ?>
-		<?php echo $form->error($model,'password'); ?>
-		<p class="hint">
-			Hint: You may login with <kbd>demo</kbd>/<kbd>demo</kbd> or <kbd>admin</kbd>/<kbd>admin</kbd>.
-		</p>
-	</div>
+        <!-- Hint -->
+        <p class="text-body-secondary small mb-3">
+          Prueba con <kbd>demo</kbd>/<kbd>demo</kbd> o <kbd>admin</kbd>/<kbd>admin</kbd>.
+        </p>
 
-	<div class="row rememberMe">
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
-		<?php echo $form->label($model,'rememberMe'); ?>
-		<?php echo $form->error($model,'rememberMe'); ?>
-	</div>
+        <!-- Remember me -->
+        <div class="form-check mb-4">
+          <?php echo $form->checkBox($model, 'rememberMe', array(
+            'class' => 'form-check-input',
+          )); ?>
+          <?php echo $form->label($model, 'rememberMe', array(
+            'class' => 'form-check-label small text-body-secondary',
+          )); ?>
+          <?php echo $form->error($model, 'rememberMe', array(
+            'class' => 'text-danger small mt-1',
+          )); ?>
+        </div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
-	</div>
+        <!-- Submit -->
+        <?php echo CHtml::submitButton('Iniciar sesión', array(
+          'class' => 'btn btn-dark w-100',
+        )); ?>
 
-<?php $this->endWidget(); ?>
-</div><!-- form -->
+      <?php $this->endWidget(); ?>
+
+    </div>
+  </div>
+</div>

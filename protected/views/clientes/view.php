@@ -30,6 +30,5 @@ $this->menu=array(
 		'rs',
 		'notas',
 		'estado',
-		'created_at',
 	),
 )); ?>
