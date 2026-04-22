@@ -30,18 +30,6 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('estado')); ?>:</b>
-	<?php echo CHtml::encode($data->estado); ?>
+	<?php echo Utilerias::getCatalogo('c_statusProyecto',false,$data->estado); ?>
 	<br />
-
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('tarifa_base')); ?>:</b>
-	<?php echo CHtml::encode($data->tarifa_base); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created_at')); ?>:</b>
-	<?php echo CHtml::encode($data->created_at); ?>
-	<br />
-
-	*/ ?>
-
 </div>

@@ -6,8 +6,21 @@
 	);
 ?>
 <div class="container-fluid">
-	<h1>Listado de clientes</h1>
 	<div class="card">
+		<!--HEADER-->  
+		<div class="card-header d-flex justify-content-between align-items-center">
+			<h3 class="card-title mb-0">Listado de clientes</h3>
+			<div class="card-tools">
+				<div class="dropdown">
+					<button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<i class="bi bi-card-list"></i>
+					</button>
+					<ul class="dropdown-menu dropdown-menu-end">
+						<li> <?php echo CHtml::link('<i class="bi bi-plus-lg me-2"></i>Crear cliente', array('clientes/create'), array('class'=>'dropdown-item','target'=>'_blank')); ?> </li>
+					</ul>
+				</div>
+			</div>
+		</div>
 		<!--SEARCH-->
 		<?php 
 			$this->renderPartial('_search',array(
@@ -27,7 +40,10 @@
 			'rs',
 			'notas',
 			array(
-				'class'=>'CButtonColumn',
+				'class'=>'ButtonColumn', //clase personalizada
+				'template' => '{view} {update} {delete}', // Pisa el template
+				'buttons'  => array(
+				),
 			),
 		),
 	)); ?>

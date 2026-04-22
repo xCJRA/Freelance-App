@@ -43,13 +43,11 @@
 		<?php echo $form->textField($model,'nombre',array('size'=>40,'maxlength'=>40)); ?>
 		<?php echo $form->error($model,'nombre'); ?>
 	</div>
-
 	<div class="row">
 		<?php echo $form->labelEx($model,'descripcion'); ?>
 		<?php echo $form->textArea($model,'descripcion',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'descripcion'); ?>
 	</div>
-
 	<div class="row">
 		<?php echo $form->labelEx($model,'fecha_inicio'); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -68,7 +66,6 @@
 		)); ?>
 		<?php echo $form->error($model,'fecha_inicio'); ?>
 	</div>
-
 	<div class="row">
 		<?php echo $form->labelEx($model,'fecha_fin'); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -87,13 +84,16 @@
 		)); ?>
 		<?php echo $form->error($model,'fecha_fin'); ?>
 	</div>
-
 	<div class="row">
 		<?php echo $form->labelEx($model,'tarifa_base'); ?>
 		<?php echo $form->textField($model,'tarifa_base',array('size'=>10,'maxlength'=>10)); ?>
 		<?php echo $form->error($model,'tarifa_base'); ?>
 	</div>
-
+	<div class="row">
+		<?php echo $form->labelEx($model,'estado'); ?>
+		<?php echo $form->dropDownList($model,'estado',Utilerias::getCatalogo('c_statusProyecto'),array()); ?>
+		<?php echo $form->error($model,'estado'); ?>
+	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

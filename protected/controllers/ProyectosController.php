@@ -148,6 +148,7 @@ class ProyectosController extends Controller
 	{
 		$model=new Proyectos('search');
 		$model->unsetAttributes();  // clear any default values
+		$model->estado = 'P'; //prioriza los pendientes
 		if(isset($_GET['Proyectos']))
 			$model->attributes=$_GET['Proyectos'];
 

@@ -27,7 +27,7 @@ class Utilerias extends CActiveRecord
 		}
 		return $retorno;
 	}
-
+    //Información del usuario - debug
 	public static function verInfoUser(){
 		// ID del usuario logueado
         $userId = Yii::app()->user->id;
@@ -74,4 +74,50 @@ class Utilerias extends CActiveRecord
         echo "<h3>Rol en sesión:</h3>";
         echo Yii::app()->user->getState('rol');
 	}
+    
+    public static function getCatalogo($tipo,$vacio=false,$idCat='',$desc='descripcion',$refnr=''){
+        $retorno = array();
+        $criteria = new CDbCriteria;
+        //$criteria->compare('socnr',)
+        $criteria->compare('tipo', $tipo);
+        $criteria->compare('idCat', $idCat);
+        $criteria->compare('refnr', $refnr);
+        $criteria->compare('estado', 'A');
+        
+        $catalogos = Catalogos::model()->findAll($criteria);
+        if($vacio){
+            $retorno[''] = '';
+        }
+        if(!$catalogos){
+            return $retorno;
+        }
+        
+        foreach($catalogos as $value){
+            $retorno[$value->idCat] = $value->$desc;
+        }
+
+        return $retorno;
+    }
+
+    public static function getCatalogoCampo($tipo,$vacio=false,$idCat='',$desc='descripcion',$refnr=''){
+        $retorno = '-';
+        $criteria = new CDbCriteria;
+        //$criteria->compare('socnr',)
+        $criteria->compare('tipo', $tipo);
+        $criteria->compare('idCat', $idCat);
+        $criteria->compare('refnr', $refnr);
+        $criteria->compare('estado', 'A');
+        
+        $catalogos = Catalogos::model()->findAll($criteria);
+
+        if(!$catalogos){
+            return $retorno;
+        }
+        
+        foreach($catalogos as $value){
+            $retorno = $value->$desc;
+        }
+
+        return $retorno;
+    }
 }
