@@ -1,6 +1,7 @@
 #Root
 assets/
 css/
+js/
 images/
 src/
 themes/
@@ -22,3 +23,9 @@ protected/.htaccess
 protected/yiic
 protected/yiic.bat
 protected/yiic.php
+#docker
+docker
+#variables
+.env
+#favicon
+favicon.ico
