@@ -1,55 +1,48 @@
-<?php
-/* @var $this TareasController */
-/* @var $model Tareas */
-/* @var $form CActiveForm */
-?>
-
-<div class="wide form">
-
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
-
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
+<?php echo $form->hiddenField($model, 'proyecto_id'); ?>
+<!-- FORM -->
+<div class="card-body">
+	<div class="col-md-6 col-lg-4 pb-2">
+		<div class="form-group row">
+			<?php echo $form->label($model, 'proyecto_id', array('class' => 'control-label col-sm-4')); ?>
+			<div class="col-md-6">
+				<?php
+					$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+						'model'       => $model,
+						'attribute'   => 'proyecto_nombre',        // campo del modelo
+						'sourceUrl'   => array('tareas/listar'),
+						'options'     => array(
+							'minLength' => 2,
+							'select'    => 'js:function(event, ui) {
+								// aquí el value del campo pasa a ser el id
+								$("#Tareas_proyecto_id").val(ui.item.id);
+								$(this).val(ui.item.value);
+								return false;
+							}',
+							'focus'     => 'js:function(event, ui) {
+								// para que se vea el nombre, no el ID
+								$("#Tareas_proyecto_id").val(ui.item.label);
+								$(this).val(ui.item.value);
+								return false;
+							}',
+						),
+						'htmlOptions' => array(
+							'size' => 30,
+							'placeholder' => 'Buscar proyecto por nombre...',
+						),
+					));
+				?>
+			</div>
+		</div>
 	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'proyecto_id'); ?>
-		<?php echo $form->textField($model,'proyecto_id'); ?>
+</div>
+<!-- BUTTON -->
+<div class="card-footer clearfix" style="display: block;">
+	<div class="col text-center">
+		<?php echo CHtml::submitButton('Buscar', array('class' => "btn btn-". Yii::app()->params["color"])); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'nombre'); ?>
-		<?php echo $form->textField($model,'nombre',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'descripcion'); ?>
-		<?php echo $form->textArea($model,'descripcion',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'horas_estimadas'); ?>
-		<?php echo $form->textField($model,'horas_estimadas',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'estado'); ?>
-		<?php echo $form->textField($model,'estado',array('size'=>1,'maxlength'=>1)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'created_at'); ?>
-		<?php echo $form->textField($model,'created_at'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
-
+</div>
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

@@ -51,8 +51,16 @@ class ProyectosController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model  = $this->loadModel($id);
+		$tareas = new Tareas('Search');
+		$tareas->unsetAttributes();  // clear any default values
+		$tareas->proyecto_id = $id;
+		if(isset($_GET['opcion'])){
+
+		}
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'	 => $model,
+			'tareas' => $tareas
 		));
 	}
 

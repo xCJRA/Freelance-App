@@ -53,7 +53,8 @@ $this->breadcrumbs = array('Login');
 
         <!-- Hint -->
         <p class="text-body-secondary small mb-3">
-          Prueba con <kbd>demo</kbd>/<kbd>demo</kbd> o <kbd>admin</kbd>/<kbd>admin</kbd>.
+          ¿Olvidaste tus acessos? <br> 
+          por favor contactar a <kbd>soporte@tksdev.com</kbd>
         </p>
 
         <!-- Remember me -->
@@ -71,7 +72,7 @@ $this->breadcrumbs = array('Login');
 
         <!-- Submit -->
         <?php echo CHtml::submitButton('Iniciar sesión', array(
-          'class' => 'btn btn-dark w-100',
+          'class' => 'btn w-100 btn-' . Yii::app()->params["color"],
         )); ?>
 
       <?php $this->endWidget(); ?>

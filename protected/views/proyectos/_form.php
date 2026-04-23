@@ -1,9 +1,8 @@
 <div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'proyectos-form',
-	'enableAjaxValidation'=>false,
-)); ?>
+	<?php $form=$this->beginWidget('CActiveForm', array(
+		'id'=>'proyectos-form',
+		'enableAjaxValidation'=>false,
+	)); ?>
 	<?php echo $form->hiddenField($model, 'cliente_id'); ?>
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 

@@ -2,6 +2,38 @@
 
 class SiteController extends Controller
 {
+	public $layout = 'main';
+
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+	public function accessRules()
+    {
+        return array(
+            // Login y error son públicos (solo para guests)
+            array('allow',
+                'actions' => array('login', 'error'),
+                'users'   => array('*'),
+            ),
+
+            // Todo lo demás SOLO para autenticados
+            // Esto incluye 'index' → si no estás autenticado, Yii
+            // te manda automáticamente al loginUrl configurado
+            array('allow',
+                'users' => array('@'),
+            ),
+
+            // Denegar el resto
+            array('deny',
+                'users' => array('*'),
+            ),
+        );
+    }
+	
 	/**
 	 * Declares class-based actions.
 	 */
@@ -78,8 +110,8 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
+		$this->layout = 'login';
 		$model=new LoginForm;
-
 		// if it is ajax validation request
 		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
 		{
