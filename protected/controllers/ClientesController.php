@@ -52,8 +52,13 @@ class ClientesController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model = $this->loadModel($id);
+		$proyectos = new Proyectos('Search');
+		$proyectos->unsetAttributes();  // clear any default values
+		$proyectos->cliente_id = $model->id;
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=> $model,
+			'proyectos'=>$proyectos,
 		));
 	}
 

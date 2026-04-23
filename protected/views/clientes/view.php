@@ -8,38 +8,24 @@ $this->breadcrumbs=array(
 	<!--NAVS-->  
 	<ul class="nav nav-tabs" id="myTab" role="tablist">
 		<li class="nav-item" role="presentation">
-			<button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">
+			<button class="nav-link active" id="pest1" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">
 				Información
+			</button>
+		</li>
+		<li class="nav-item" role="presentation">
+			<button class="nav-link" id="pest2" data-bs-toggle="tab" data-bs-target="#proyectos" type="button" role="tab" aria-controls="proyectos" aria-selected="false">
+				Proyectos
 			</button>
 		</li>
 	</ul>
 	<br>
-	<!--HEADER-->  
-	<div class="card-body d-flex justify-content-between align-items-center">
-		<h4 class="card-title mb-0">Cliente #<?php echo $model->id; ?></h4>
-		<div class="card-tools">
-			<div class="dropdown">
-				<button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-					<i class="bi bi-card-list"></i>
-				</button>
-				<ul class="dropdown-menu dropdown-menu-end">
-					<li> <?php echo CHtml::link('<i class="bi bi-plus-lg me-2"></i>Administrar clientes', array('clientes/create'), array('class'=>'dropdown-item','target'=>'_blank')); ?> </li>
-					<li> <?php echo CHtml::link('<i class="bi bi-pen me-2"></i>Editar cliente', array('clientes/update','id'=>$model->id), array('class'=>'dropdown-item')); ?> </li>
-					<li> <?php echo CHtml::link('<i class="bi bi-file-earmark-plus me-2"></i>Crear proyecto', array('proyectos/create','cliente_id'=>$model->id), array('class'=>'dropdown-item','target'=>'_blank')); ?> </li>
-				</ul>
-			</div>
+	<div class="tab-content">
+		<div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="pest1">
+			<?php $this->renderPartial('_tabViewInformacion', array('model'=>$model)); ?>
+		</div>
+
+		<div class="tab-pane fade" id="proyectos" role="tabpanel" aria-labelledby="pest2">
+			<?php $this->renderPartial('_tabViewProyectos', array('model'=>$model,'proyectos'=>$proyectos)); ?>
 		</div>
 	</div>
-	<?php $this->widget('zii.widgets.CDetailView', array(
-		'data'=>$model,
-		'attributes'=>array(
-			'id',
-			'nombre',
-			'email',
-			'telefono',
-			'rs',
-			'notas',
-			'estado',
-		),
-	)); ?>
 </div>
