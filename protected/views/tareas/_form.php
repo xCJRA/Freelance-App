@@ -1,51 +1,71 @@
-<?php
-/* @var $this TareasController */
-/* @var $model Tareas */
-/* @var $form CActiveForm */
-?>
-
-<div class="form">
-
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'tareas-form',
-	// Please note: When you enable ajax validation, make sure the corresponding
-	// controller action is handling ajax validation correctly.
-	// There is a call to performAjaxValidation() commented in generated controller code.
-	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
 )); ?>
-	<?php echo $form->hiddenField($model, 'proyecto_id'); ?>
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<?php echo $form->errorSummary($model); ?>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'proyecto_id'); ?>
-		<?php echo $form->textField($model,'proyecto_nombre',array('readonly'=>true)); ?>
-		<?php echo $form->error($model,'proyecto_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'nombre'); ?>
-		<?php echo $form->textField($model,'nombre',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'nombre'); ?>
-	</div>
+<div class="container-sm py-4">
+	<h1 class="h4 fw-semibold mb-1">
+		<?php echo $model->isNewRecord ? 'Nueva Tarea' : 'Editar Tarea'; ?>
+	</h1>
+	<p class="text-body-secondary small mb-4">
+		Los campos con <span class="text-danger">*</span> son obligatorios.
+	</p>
+	<!-- Error summary -->
+	<?php echo $form->errorSummary($model, null, null, array(
+		'class' => 'alert alert-danger small',
+	)); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'descripcion'); ?>
-		<?php echo $form->textArea($model,'descripcion',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'descripcion'); ?>
-	</div>
+		
+		<div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+			<?php echo $form->labelEx($model, 'proyecto_id', array('class' => 'form-label fw-medium small')); ?>
+			<?php echo $form->textField($model, 'proyecto_nombre', array(
+				'class'     => 'form-control',
+				'maxlength' => 30,
+				'readonly'=>true
+			)); ?>
+			<?php echo $form->error($model, 'proyecto_id', array('class' => 'text-danger small mt-1')); ?>
+		</div>
+		
+		<div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+			<?php echo $form->labelEx($model, 'nombre', array('class' => 'form-label fw-medium small')); ?>
+			<?php echo $form->textField($model, 'nombre', array(
+				'class'     => 'form-control',
+			)); ?>
+			<?php echo $form->error($model, 'nombre', array('class' => 'text-danger small mt-1')); ?>
+		</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'horas_estimadas'); ?>
-		<?php echo $form->textField($model,'horas_estimadas',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'horas_estimadas'); ?>
-	</div>
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
+		<div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+			<?php echo $form->labelEx($model, 'descripcion', array('class' => 'form-label fw-medium small')); ?>
+			<?php echo $form->textArea($model, 'descripcion', array(
+				'class' => 'form-control',
+				'rows'  => 2,
+			)); ?>
+			<?php echo $form->error($model, 'descripcion', array('class' => 'text-danger small mt-1')); ?>
+		</div>
 
+		<div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+			<?php echo $form->labelEx($model, 'horas_estimadas', array('class' => 'form-label fw-medium small')); ?>
+			<?php echo $form->textField($model, 'horas_estimadas', array(
+				'class'     => 'form-control',
+				'size' => 10,
+				'maxlength'=>10
+			)); ?>
+			<?php echo $form->error($model, 'horas_estimadas', array('class' => 'text-danger small mt-1')); ?>
+		</div>
+		
+		<div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+			<?php echo $form->labelEx($model, 'estado', array('class' => 'form-label fw-medium small')); ?>
+			<?php echo $form->dropDownList($model, 'estado', Utilerias::getCatalogo('c_statusTarea'), array(
+			'class' => 'form-select',
+			)); ?>
+			<?php echo $form->error($model, 'estado', array('class' => 'text-danger small mt-1')); ?>
+		</div>
+	</div>
+	<!-- Botón -->
+	<?php echo CHtml::submitButton(
+		$model->isNewRecord ? 'Crear tarea' : 'Guardar cambios',
+		array('class' => 'btn px-4 btn-' . Yii::app()->params['color'])
+	); ?>
+</div>
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

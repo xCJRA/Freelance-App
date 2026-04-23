@@ -38,6 +38,12 @@ class Tareas extends CActiveRecord
             'audit' => array(
                 'class' => 'AuditBehavior',
             ),
+			'timestamp' => array(
+				'class'           => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'created_at',  // campo al crear
+				'updateAttribute' => null,           // si no tienes updated_at, ponlo null
+				'timestampExpression' => new CDbExpression('NOW()'), // formato datetime
+			),
         );
     }
 	/**
@@ -48,11 +54,12 @@ class Tareas extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('proyecto_id, nombre, descripcion', 'required'),
 			array('proyecto_id', 'numerical', 'integerOnly'=>true),
 			array('nombre', 'length', 'max'=>50),
 			array('horas_estimadas', 'length', 'max'=>10),
 			array('estado', 'length', 'max'=>1),
-			array('descripcion, created_at', 'safe'),
+			array(' created_at', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, proyecto_id, nombre, descripcion, horas_estimadas, estado, created_at', 'safe', 'on'=>'search'),

@@ -1,60 +1,50 @@
-<?php
-/* @var $this CotizacionesController */
-/* @var $model Cotizaciones */
-/* @var $form CActiveForm */
-?>
-
-<div class="wide form">
-
 <?php $form=$this->beginWidget('CActiveForm', array(
+    'id'    =>'form-cotizaciones',
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'cliente_id'); ?>
-		<?php echo $form->textField($model,'cliente_id'); ?>
+<?php echo $form->hiddenField($model, 'cliente_id'); ?>
+<!-- FORM -->
+<div class="card-body">
+    <div class="row">
+		<div class="col-md-6 col-lg-4 pb-2">
+            <div class="form-group row">
+                <?php echo $form->label($model, 'nombre', array('class' => 'control-label col-sm-4')); ?>
+                <div class="col-md-6">
+                    <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                        'model'     => $model,
+                        'attribute' => 'nombreCliente',
+                        'sourceUrl' => array('clientes/listar'),
+                        'options'   => array(
+                        'minLength' => 2,
+                        'select'    => 'js:function(event, ui) {
+                            $("#Clientes_id").val(ui.item.id);
+                            $(this).val(ui.item.value);
+                            return false;
+                        }',
+                        'focus'     => 'js:function(event, ui) {
+                            $("#Clientes_id").val(ui.item.label);
+                            $(this).val(ui.item.value);
+                            return false;
+                        }',
+                        ),
+                        'htmlOptions' => array(
+                        'class'       => 'form-control form-control-sm',
+                        'placeholder' => 'Buscar cliente por nombre...',
+                        'autocomplete'=> 'off',
+                        ),
+                    )); ?>
+                </div>
+            </div>
+        </div>
 	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'proyecto_nombre'); ?>
-		<?php echo $form->textField($model,'proyecto_nombre',array('size'=>50,'maxlength'=>50)); ?>
+</div>
+<!-- BUTTON -->
+<div class="card-footer clearfix" style="display: block;">
+	<div class="col text-center">
+		<?php echo CHtml::Button('Buscar', array('id'=>'btnBuscar','class' => "btn btn-". Yii::app()->params["color"])); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'total_estimado'); ?>
-		<?php echo $form->textField($model,'total_estimado',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'buffer_porcentaje'); ?>
-		<?php echo $form->textField($model,'buffer_porcentaje',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'total_final'); ?>
-		<?php echo $form->textField($model,'total_final',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'estado'); ?>
-		<?php echo $form->textField($model,'estado',array('size'=>1,'maxlength'=>1)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'created_at'); ?>
-		<?php echo $form->textField($model,'created_at'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
-
+</div>
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

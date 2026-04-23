@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Clientes'=>array('index'),
+	'Clientes'=>array('admin'),
 	$model->id,
 );
 ?>

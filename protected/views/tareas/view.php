@@ -24,6 +24,7 @@
 				</button>
 				<ul class="dropdown-menu dropdown-menu-end">
 					<li> <?php echo CHtml::link('<i class="bi bi-table me-2"></i>Administrar tareas', array('tareas/admin', 'proyecto_id'=>$model->proyecto_id), array('class'=>'dropdown-item')); ?> </li>
+					<li> <?php echo CHtml::link('<i class="bi bi-plus-lg me-2"></i>Crear tarea', array('tareas/create','proyecto_id'=>$model->proyecto_id), array('class'=>'dropdown-item')); ?> </li>
 					<li> <?php echo CHtml::link('<i class="bi bi-pen me-2"></i>Editar tarea', array('tareas/update','id'=>$model->id), array('class'=>'dropdown-item')); ?> </li>
 				</ul>
 			</div>

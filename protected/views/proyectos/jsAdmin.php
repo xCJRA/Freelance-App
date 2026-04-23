@@ -1,13 +1,8 @@
 <?php
 Yii::app()->clientScript->registerScript('search', "
-    $('.search-button').click(function(){
-        $('.search-form').toggle();
-        return false;
-    });
-    $('.search-form form').submit(function(){
-        $('#proyectos-grid').yiiGridView('update', {
-            data: $(this).serialize()
+    $('#btnBuscar').click(function(){
+        $.fn.yiiGridView.update('proyectos-grid', {
+            data: $('#form-proyectos').serialize()
         });
-        return false;
     });
 ");

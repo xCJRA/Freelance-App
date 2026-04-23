@@ -1,7 +1,7 @@
 <?php
 	include('jsView.php');
 	$this->breadcrumbs=array(
-		'Proyectos'=>array('index'),
+		'Proyectos'=>array('admin'),
 		$model->id,
 	);
 ?>
