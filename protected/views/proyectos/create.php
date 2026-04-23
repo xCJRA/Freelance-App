@@ -1,11 +1,8 @@
 <?php
 $this->breadcrumbs=array(
-	'Proyectos'=>array('index'),
+	'Proyectos'=>array('admin'),
 	'Create',
 );
 
 ?>
-
-<h1>Create Proyectos</h1>
-
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

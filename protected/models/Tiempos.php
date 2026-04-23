@@ -37,6 +37,12 @@ class Tiempos extends CActiveRecord
             'audit' => array(
                 'class' => 'AuditBehavior',
             ),
+			'timestamp' => array(
+				'class'           => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'created_at',  // campo al crear
+				'updateAttribute' => null,           // si no tienes updated_at, ponlo null
+				'timestampExpression' => new CDbExpression('NOW()'), // formato datetime
+			),
         );
     }
 
