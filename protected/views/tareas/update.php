@@ -1,19 +1,9 @@
 <?php
-/* @var $this TareasController */
-/* @var $model Tareas */
-
-$this->breadcrumbs=array(
-	'Tareas'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
-
-$this->menu=array(
-	array('label'=>'List Tareas', 'url'=>array('index')),
-	array('label'=>'Create Tareas', 'url'=>array('create')),
-	array('label'=>'View Tareas', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Tareas', 'url'=>array('admin')),
-);
+	$this->breadcrumbs=array(
+		'Tareas'=>array('index'),
+		$model->id=>array('view','id'=>$model->id),
+		'Update',
+	);
 ?>
 
 <h1>Update Tareas <?php echo $model->id; ?></h1>

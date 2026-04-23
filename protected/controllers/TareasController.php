@@ -149,6 +149,9 @@ class TareasController extends Controller
 	{
 		$model=new Tareas('search');
 		$model->unsetAttributes();  // clear any default values
+		if (isset($_GET['proyecto_id']) && $_GET['proyecto_id'] > 0) {
+			$model->proyecto_id = $_GET['proyecto_id'];
+		}
 		if(isset($_GET['Tareas']))
 			$model->attributes=$_GET['Tareas'];
 
