@@ -37,6 +37,12 @@ class Clientes extends CActiveRecord
             'audit' => array(
                 'class' => 'AuditBehavior',
             ),
+			'timestamp' => array(
+				'class'           => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'created_at',  // campo al crear
+				'updateAttribute' => null,           // si no tienes updated_at, ponlo null
+				'timestampExpression' => new CDbExpression('NOW()'), // formato datetime
+			),
         );
     }
 
@@ -45,19 +51,36 @@ class Clientes extends CActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
+			// Campos requeridos
 			array('nombre, email', 'required'),
-			array('nombre', 'length', 'max'=>30),
-			array('email', 'length', 'max'=>20),
-			array('telefono', 'length', 'max'=>12),
-			array('rs', 'length', 'max'=>40),
-			array('estado', 'length', 'max'=>1),
+
+			// Validación de formato de email
+			array('email', 'email'),
+
+			// Longitudes correctas
+			array('nombre',      'length', 'max'=>30),
+			array('email',       'length', 'max'=>100),  // ampliado
+			array('telefono',    'length', 'max'=>15),   // ampliado para formato intl.
+			array('rs',          'length', 'max'=>40),
+			array('moneda',      'length', 'max'=>3),
+			array('fe_registro', 'length', 'max'=>10),
+
+			// Validación de formato teléfono
+			array('telefono', 'match', 
+				'pattern'=>'/^[0-9\+\-\s]*$/',
+				'message'=>'El teléfono solo acepta números'),
+
+			// Campos que se les define un rango
+			array('estado', 'in', 'range'=>array('A','I')),
+			array('cobrarIva', 'in', 'range'=>array(0, 1)),
+
+			// Campos seguros sin validación estricta
 			array('notas, created_at', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre, email, telefono, rs, notas, estado, created_at', 'safe', 'on'=>'search'),
+
+			// Solo para el escenario de búsqueda
+			array('id, nombre, email, telefono, rs, notas, estado, moneda, fe_registro, cobrarIva, created_at', 
+				'safe', 'on'=>'search'),
 		);
 	}
 
@@ -83,10 +106,13 @@ class Clientes extends CActiveRecord
 			'id' => 'ID',
 			'nombre' => 'Nombre',
 			'email' => 'Email',
-			'telefono' => 'Telefono',
-			'rs' => 'Rs',
+			'telefono' => 'Teléfono',
+			'rs' => 'Razón Social',
 			'notas' => 'Notas',
 			'estado' => 'Estado',
+			'moneda' => 'Moneda',
+			'fe_registro' => 'Fecha registro',
+			'cobrarIva' => 'Cobrar IVA',
 			'created_at' => 'Created At',
 		);
 	}

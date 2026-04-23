@@ -69,7 +69,7 @@ class ClientesController extends Controller
 	public function actionCreate()
 	{
 		$model=new Clientes;
-
+		$model->fe_registro = date('Y-m-d');
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 

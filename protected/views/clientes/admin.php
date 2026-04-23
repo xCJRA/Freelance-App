@@ -1,7 +1,7 @@
 <?php include('jsAdmin.php'); ?>
 <?php
 	$this->breadcrumbs=array(
-		'Clientes'=>array('index'),
+		'Clientes'=>array('admin'),
 		'Manage',
 	);
 ?>
