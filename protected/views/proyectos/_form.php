@@ -1,9 +1,3 @@
-<?php
-/* @var $this ProyectosController */
-/* @var $model Proyectos */
-/* @var $form CActiveForm */
-?>
-
 <div class="container-sm py-4">
 
   <h1 class="h4 fw-semibold mb-1">
@@ -46,9 +40,9 @@
 				}',
 				),
 				'htmlOptions' => array(
-				'class'       => 'form-control',
-				'placeholder' => 'Buscar cliente por nombre...',
-				'autocomplete'=> 'off',
+					'class'       => 'form-control',
+					'placeholder' => 'Buscar cliente por nombre...',
+					'autocomplete'=> 'off',
 				),
 			)); ?>
 			<?php echo $form->error($model, 'cliente_id', array('class' => 'text-danger small mt-1')); ?>

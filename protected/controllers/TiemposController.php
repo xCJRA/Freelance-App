@@ -64,9 +64,17 @@ class TiemposController extends Controller
 	public function actionCreate()
 	{
 		$model=new Tiempos;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$model->fecha = date('Y-m-d');
+		$model->horas = 1;
+		if(isset($_GET['proyecto_id'])){
+			$model->proyecto_id = $_GET['proyecto_id'];
+			$model->proyecto_nombre = Utilerias::getName($model->proyecto_id,'nombre',new Proyectos());
+		}
+		
+		if(isset($_GET['tareas_id'])){
+			$model->tareas_id = $_GET['tareas_id'];
+			$model->tarea_nombre = Utilerias::getName($model->tareas_id,'nombre',new Tareas());
+		}
 
 		if(isset($_POST['Tiempos']))
 		{

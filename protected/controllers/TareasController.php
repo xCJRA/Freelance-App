@@ -52,8 +52,14 @@ class TareasController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model = $this->loadModel($id);
+		$tiempos = new Tiempos('Search');
+		$tiempos->unsetAttributes();  // clear any default values
+		$tiempos->tareas_id = $id;
+		$tiempos->proyecto_id = $model->proyecto_id;
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=> $model,
+			'tiempos'=>$tiempos
 		));
 	}
 
@@ -91,7 +97,8 @@ class TareasController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+		//asigamos el nombre del proyecto
+		$model->proyecto_nombre = Utilerias::getName($model->proyecto_id,'nombre', new Proyectos());
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 

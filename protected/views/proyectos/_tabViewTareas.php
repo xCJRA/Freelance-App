@@ -7,13 +7,14 @@
                 <i class="bi bi-card-list"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li> <?php echo CHtml::link('<i class="bi bi-file-earmark-plus me-2"></i>Crear tarea', array('tareas/create','proyecto_id'=>$tareas->proyecto_id), array('class'=>'dropdown-item','target'=>'_blank')); ?> </li>
+                <li> <?php echo CHtml::link('<i class="bi bi-list-task me-2"></i>Ver tareas', array('tareas/admin','proyecto_id'=>$model->id), array('class'=>'dropdown-item','target'=>'_blank')); ?> </li>
+                <li> <?php echo CHtml::link('<i class="bi bi-file-earmark-plus me-2"></i>Crear tarea', array('tareas/create','proyecto_id'=>$model->id), array('class'=>'dropdown-item','target'=>'_blank')); ?> </li>
             </ul>
         </div>
     </div>
 </div>
 <?php
-        $this->widget('zii.widgets.grid.CGridView', array(
+	$this->widget('zii.widgets.grid.CGridView', array(
 		'id'=>'tareas-grid',
 		'dataProvider'=>$tareas->search(),
 		'columns'=>array(
@@ -21,10 +22,25 @@
 				'name'   => 'proyecto_id',
 				'type'   => 'raw',
 				'value'  => 'Utilerias::getLink($data->proyecto_id, "Proyectos", "proyectos")',
+				'footer' => 'Total ' . $tareas->totalTareas,
+				'footerHtmlOptions' => array('style' => 'text-align:center; font-weight:bold')
 			),
 			'nombre',
 			'descripcion',
-			'horas_estimadas',
+			array(
+				'name' 	 => 'horas_estimadas',
+				'type'	 => 'raw',
+            	'htmlOptions'       => array('style' => 'text-align:center'),
+				'footer' => $tareas->totalHorasEstimadas,
+				'footerHtmlOptions' => array('style' => 'text-align:center; font-weight:bold')
+			),
+			array(
+				'name' 	 => 'horas_reales',
+				'type'	 => 'raw',
+            	'htmlOptions'       => array('style' => 'text-align:center'),
+            	'footer' => $tareas->totalHorasReales,
+				'footerHtmlOptions' => array('style' => 'text-align:center; font-weight:bold')
+			),
 			array(
 				'name'   => 'estado',
 				'type'   => 'raw',

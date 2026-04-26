@@ -98,7 +98,7 @@ class ProyectosController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+		$model->nombreCliente = Utilerias::getName($model->cliente_id,'nombre',new Clientes());
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -156,7 +156,7 @@ class ProyectosController extends Controller
 	{
 		$model=new Proyectos('search');
 		$model->unsetAttributes();  // clear any default values
-		$model->estado = 'P'; //prioriza los pendientes
+		$model->estado = 'I'; //prioriza los iniciados
 		if(isset($_GET['Proyectos']))
 			$model->attributes=$_GET['Proyectos'];
 

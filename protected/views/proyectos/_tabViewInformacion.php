@@ -7,10 +7,8 @@
                 <i class="bi bi-card-list"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li> <?php echo CHtml::link('<i class="bi bi-table me-2"></i>Administrar proyectos', array('proyectos/admin'), array('class'=>'dropdown-item')); ?> </li>
+                <li> <?php echo CHtml::link('<i class="bi bi-table me-2"></i>Administrar proyectos', array('proyectos/admin','cliente_id'=>$model->cliente_id), array('class'=>'dropdown-item')); ?> </li>
                 <li> <?php echo CHtml::link('<i class="bi bi-pen me-2"></i>Editar proyecto', array('proyectos/update','id'=>$model->id), array('class'=>'dropdown-item')); ?> </li>
-                <li> <?php echo CHtml::link('<i class="bi bi-file-earmark-plus me-2"></i>Crear tarea', array('tareas/create','proyecto_id'=>$model->id), array('class'=>'dropdown-item','target'=>'_blank')); ?> </li>
-                <li> <?php echo CHtml::link('<i class="bi bi-list-task me-2"></i>Ver tareas', array('tareas/admin','proyecto_id'=>$model->id), array('class'=>'dropdown-item','target'=>'_blank')); ?> </li>
             </ul>
         </div>
     </div>
@@ -35,6 +33,23 @@
             'type'  => 'raw',
             'value' => Utilerias::getCatalogoCampo('c_statusProyecto',false,$model->estado),
         ),
-        'tarifa_base',
+        array(
+            'name' => 'tarifa_base',
+            'label' => 'Tarifa base',
+            'type'  => 'raw',
+            'value' => Utilerias::getFormatoMoneda($model->tarifa_base),
+        ),
+        array(
+            'name'  => 'gananciaEstimada',
+            'label' => 'Ganancia estimada',
+            'type'  => 'raw',
+            'value' => $model->getGanancia('horas_estimadas'),
+        ),
+        array(
+            'name'  => 'gananciaReal',
+            'label' => 'Ganancia real',
+            'type'  => 'raw',
+            'value' => $model->getGanancia('horas_reales'),
+        ),
     ),
 )); ?>

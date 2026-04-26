@@ -19,6 +19,8 @@
  */
 class Tiempos extends CActiveRecord
 {
+	public $tarea_nombre;
+	public $proyecto_nombre;
 	/**
 	 * @return string the associated database table name
 	 */
