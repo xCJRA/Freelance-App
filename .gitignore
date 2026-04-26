@@ -1,5 +1,6 @@
 #Root
 assets/
+backups/
 css/
 js/
 images/
@@ -29,3 +30,5 @@ docker
 .env
 #favicon
 favicon.ico
+#notas
+Notas.md

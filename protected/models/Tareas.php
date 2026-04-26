@@ -19,6 +19,9 @@
 class Tareas extends CActiveRecord
 {
 	public $proyecto_nombre;
+	public $totalTareas;
+	public $totalHorasEstimadas;
+	public $totalHorasReales;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -57,9 +60,10 @@ class Tareas extends CActiveRecord
 			array('proyecto_id, nombre, descripcion', 'required'),
 			array('proyecto_id', 'numerical', 'integerOnly'=>true),
 			array('nombre', 'length', 'max'=>50),
-			array('horas_estimadas', 'length', 'max'=>10),
+			array('horas_estimadas, horas_reales', 'length', 'max'=>10),
+			array('fecha_inicio, fecha_fin', 'length', 'max'=>10),
 			array('estado', 'length', 'max'=>1),
-			array(' created_at', 'safe'),
+			array('comentarios, created_at', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, proyecto_id, nombre, descripcion, horas_estimadas, estado, created_at', 'safe', 'on'=>'search'),
@@ -89,7 +93,11 @@ class Tareas extends CActiveRecord
 			'proyecto_id' => 'Proyecto',
 			'nombre' => 'Nombre',
 			'descripcion' => 'Descripcion',
+			'comentarios' => 'Comentarios',
 			'horas_estimadas' => 'Horas Estimadas',
+			'horas_reales' => 'Horas Reales',
+			'fecha_inicio' => 'Fecha inicio',
+			'fecha_fin' => 'Fecha final',
 			'estado' => 'Estado',
 			'created_at' => 'Created At',
 		);
@@ -109,7 +117,8 @@ class Tareas extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+		//iniciamos variables para el calculo del footer
+		$this->initValTareas();
 
 		$criteria=new CDbCriteria;
 
@@ -120,6 +129,11 @@ class Tareas extends CActiveRecord
 		$criteria->compare('horas_estimadas',$this->horas_estimadas,true);
 		$criteria->compare('estado',$this->estado,true);
 		$criteria->compare('created_at',$this->created_at,true);
+
+		//calculo para el footer
+		$this->totalTareas      			=  (int)  Tareas::model()->count($criteria);
+		$this->totalHorasEstimadas       	= $this->getSuma('horas_estimadas', $criteria);
+		$this->totalHorasReales 			= $this->getSuma('horas_reales',    $criteria);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -136,4 +150,23 @@ class Tareas extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	public function initValTareas(){
+		$this->totalTareas		= 0;
+		$this->totalHorasEstimadas 	= 0;
+		$this->totalHorasReales		= 0;
+	}
+
+	private function getSuma($columna, CDbCriteria $criteria)
+    {
+        $tabla = $this->tableName();
+
+        $sql = "SELECT SUM(`{$columna}`) FROM `{$tabla}`";
+
+        if (!empty($criteria->condition))
+            $sql .= " WHERE " . $criteria->condition;
+
+        return (float) Yii::app()->db->createCommand($sql)
+            ->queryScalar($criteria->params) ?: 0;
+    }
 }

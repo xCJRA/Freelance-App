@@ -1,19 +1,8 @@
 <?php
-/* @var $this TiemposController */
-/* @var $model Tiempos */
-
-$this->breadcrumbs=array(
-	'Tiempos'=>array('index'),
-	$model->id,
-);
-
-$this->menu=array(
-	array('label'=>'List Tiempos', 'url'=>array('index')),
-	array('label'=>'Create Tiempos', 'url'=>array('create')),
-	array('label'=>'Update Tiempos', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Tiempos', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Tiempos', 'url'=>array('admin')),
-);
+	$this->breadcrumbs=array(
+		'Tiempos'=>array('index'),
+		$model->id,
+	);
 ?>
 
 <h1>View Tiempos #<?php echo $model->id; ?></h1>
@@ -22,12 +11,32 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'proyecto_id',
-		'tareas_id',
-		'tipo',
+		array(
+			'name'  => 'proyecto_id',
+			'label' => 'Proyecto',
+			'type'  => 'raw',
+			'value' => Utilerias::getLink($model->proyecto_id, 'Proyectos', 'proyectos'),
+		),
+		array(
+			'name'  => 'tareas_id',
+			'label' => 'Tarea',
+			'type'  => 'raw',
+			'value' => Utilerias::getLink($model->tareas_id, 'Tareas', 'tareas'),
+		),
+		array(
+			'name'  => 'tipo',
+			'label' => 'Tipo',
+			'type'  => 'raw',
+			'value' => Utilerias::getCatalogoCampo('c_tiempoTipo',false,$model->tipo),
+		),
 		'descripcion',
 		'horas',
-		'facturable',
+		array(
+			'name'  => 'facturable',
+			'label' => 'Facturable',
+			'type'  => 'raw',
+			'value' => Utilerias::getCatalogoCampo('c_tiempoFacturable',false,$model->facturable),
+		),
 		'fecha',
 	),
 )); ?>

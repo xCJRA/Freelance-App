@@ -120,4 +120,45 @@ class Utilerias extends CActiveRecord
 
         return $retorno;
     }
+
+    public static function getFormatoMoneda($monto, $moneda = 'MXN')
+    {
+        // Sanitizar: eliminar cualquier carácter no numérico excepto punto decimal
+        $montoLimpio = preg_replace('/[^\d.]/', '', (string) $monto);
+
+        if ($montoLimpio === '' || !is_numeric($montoLimpio)) {
+            throw new InvalidArgumentException("El monto '{$monto}' no es válido.");
+        }
+
+        $montoFloat = (float) $montoLimpio;
+
+        // Definir símbolo según el código de moneda
+        $simbolos = Utilerias::getCatalogo('c_simboloMoneda');
+
+        $simbolo = $simbolos[strtoupper($moneda)] ?? $moneda;
+
+        // number_format(monto, decimales, separador_decimal, separador_miles)
+        $montoFormateado = number_format($montoFloat, 2, '.', ',');
+
+        return "{$simbolo} {$montoFormateado}";
+    }
+
+    public static function quitarFormatoMoneda($montoFormateado)
+    {
+        // Eliminar símbolo, espacios y separadores de miles
+        $limpio = preg_replace('/[^\d.]/', '', $montoFormateado);
+
+        if ($limpio === '' || !is_numeric($limpio)) {
+            throw new InvalidArgumentException("El valor '{$montoFormateado}' no puede desformatearse.");
+        }
+
+        $numero = (float) $limpio;
+
+        // Si el número no tiene decimales significativos, devolver como entero
+        // fmod obtiene el residuo de la división (la parte decimal)
+        return fmod($numero, 1) === 0.0
+            ? (string)(int) $numero
+            : rtrim(rtrim(number_format($numero, 10, '.', ''), '0'), '.');
+    }
+
 }

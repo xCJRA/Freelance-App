@@ -1,18 +1,7 @@
 <?php
-/* @var $this TiemposController */
-/* @var $model Tiempos */
-
-$this->breadcrumbs=array(
-	'Tiempos'=>array('index'),
-	'Create',
-);
-
-$this->menu=array(
-	array('label'=>'List Tiempos', 'url'=>array('index')),
-	array('label'=>'Manage Tiempos', 'url'=>array('admin')),
-);
+	$this->breadcrumbs=array(
+		'Tiempos'=>array('admin'),
+		'Create',
+	);
 ?>
-
-<h1>Create Tiempos</h1>
-
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

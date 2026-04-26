@@ -22,6 +22,8 @@
 class Proyectos extends CActiveRecord
 {
 	public $nombreCliente;
+	public $gananciaEstimada;
+	public $gananciaReal;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -143,5 +145,21 @@ class Proyectos extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function getGanancia($tipo){
+		$retorno = 0;
+		$critTareas = new CDbCriteria;
+		$critTareas->compare('proyecto_id',$this->id);
+		$tareas = Tareas::model()->findAll($critTareas);
+		if(!$tareas){
+			return $retorno;
+		}
+		foreach($tareas as $tarea){
+			$retorno += $tarea->$tipo;
+		}
+		$retorno = $this->tarifa_base * $retorno;
+		$moneda  = 'MXN';
+		return Utilerias::getFormatoMoneda($retorno, $moneda);
 	}
 }

@@ -19,13 +19,28 @@
 		'dataProvider'=>$model->search(),
 		'columns'=>array(
 			array(
-				'name'   => 'proyecto_id',
-				'type'   => 'raw',
-				'value'  => 'Utilerias::getLink($data->proyecto_id, "Proyectos", "proyectos")',
+				'name'   			=> 'proyecto_id',
+				'type'   			=> 'raw',
+				'value'  			=> 'Utilerias::getLink($data->proyecto_id, "Proyectos", "proyectos")',
+				'footer' 			=> 'Total: ' . $model->totalTareas,
+				'footerHtmlOptions' => array('style' => 'text-align:center; font-weight:bold')
 			),
 			'nombre',
 			'descripcion',
-			'horas_estimadas',
+			array(
+				'name' 	 			=> 'horas_estimadas',
+				'type'	 			=> 'raw',
+            	'htmlOptions'       => array('style' => 'text-align:center'),
+				'footer' 			=> $model->totalHorasEstimadas,
+				'footerHtmlOptions' => array('style' => 'text-align:center; font-weight:bold')
+			),
+			array(
+				'name' 	 => 'horas_reales',
+				'type'	 => 'raw',
+            	'htmlOptions'       => array('style' => 'text-align:center'),
+            	'footer' => $model->totalHorasReales,
+				'footerHtmlOptions' => array('style' => 'text-align:center; font-weight:bold')
+			),
 			array(
 				'name'   => 'estado',
 				'type'   => 'raw',
