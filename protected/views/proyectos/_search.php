@@ -70,7 +70,7 @@
             <div class="form-group row">
                 <?php echo $form->label($model, 'estado', array('class' => 'control-label col-sm-4')); ?>
                 <div class="col-md-6">
-                    <?php echo $form->dropDownList($model, 'estado', Utilerias::getCatalogo('c_statusProyecto'),array('class' => 'form-control form-control-sm')); ?>
+                    <?php echo $form->dropDownList($model, 'estado', Utilerias::getCatalogo('c_statusProyecto',true),array('class' => 'form-control form-control-sm')); ?>
                 </div>
             </div>
         </div>

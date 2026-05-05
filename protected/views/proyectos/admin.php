@@ -46,6 +46,26 @@
 			'fecha_inicio',
 			'fecha_fin',
 			array(
+				'name'   => 'tarifa_base',
+				'type'   => 'text',
+    			'value'  => 'Utilerias::getFormatoMoneda($data->tarifa_base)',
+				'footer' => Utilerias::getFormatoMoneda($model->totalTarifa)
+			),
+			array(
+				'name'   => 'gananciaEstimada',
+				'header' => 'Ganancia estimada',
+				'type'   => 'text',
+    			'value'  => 'Proyectos::getGananciaAdmin("horas_estimadas",$data)',
+				'footer' => Utilerias::getFormatoMoneda($model->totalGEstimada)
+			),
+			array(
+				'name'   => 'gananciaReal',
+				'header' => 'Ganancia real',
+				'type'   => 'text',
+    			'value'  => 'Proyectos::getGananciaAdmin("horas_reales",$data)',
+				'footer' => Utilerias::getFormatoMoneda($model->totalGReal)
+			),
+			array(
 				'name'   => 'estado',
 				'type'   => 'text',
     			'value'  => 'Utilerias::getCatalogoCampo("c_statusProyecto",false,$data->estado)',
