@@ -1,6 +1,6 @@
 <?php
 
-class ProyectosController extends Controller
+class DashboardController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -37,10 +37,7 @@ class ProyectosController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-                'expression' => 'Yii::app()->user->checkAccess("admin")',
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('modificaEstado'),
+				//'users'=>array('admin'),
                 'expression' => 'Yii::app()->user->checkAccess("admin")',
 			),
 			array('deny',  // deny all users
@@ -55,16 +52,8 @@ class ProyectosController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$model  = $this->loadModel($id);
-		$tareas = new Tareas('Search');
-		$tareas->unsetAttributes();  // clear any default values
-		$tareas->proyecto_id = $id;
-		if(isset($_GET['opcion'])){
-
-		}
 		$this->render('view',array(
-			'model'	 => $model,
-			'tareas' => $tareas
+			'model'=>$this->loadModel($id),
 		));
 	}
 
@@ -74,17 +63,14 @@ class ProyectosController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Proyectos;
+		$model=new Dashboard;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-		if(isset($_GET['cliente_id'])){
-			$model->cliente_id = $_GET['cliente_id'];
-			$model->nombreCliente = Utilerias::getName($model->cliente_id,'nombre',new Clientes());
-		}
-		if(isset($_POST['Proyectos']))
+
+		if(isset($_POST['Dashboard']))
 		{
-			$model->attributes=$_POST['Proyectos'];
+			$model->attributes=$_POST['Dashboard'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -102,13 +88,13 @@ class ProyectosController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-		$model->nombreCliente = Utilerias::getName($model->cliente_id,'nombre',new Clientes());
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Proyectos']))
+		if(isset($_POST['Dashboard']))
 		{
-			$model->attributes=$_POST['Proyectos'];
+			$model->attributes=$_POST['Dashboard'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -137,17 +123,7 @@ class ProyectosController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$criteria = new CDbCriteria;
-
-		// filtrar por cliente_id si viene por GET
-		if (isset($_GET['cliente_id']) && $_GET['cliente_id'] > 0) {
-			$criteria->compare('cliente_id', $_GET['cliente_id']);
-		}
-
-		$dataProvider = new CActiveDataProvider('Proyectos', array(
-			'criteria'=>$criteria,
-		));
-
+		$dataProvider=new CActiveDataProvider('Dashboard');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -158,11 +134,10 @@ class ProyectosController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Proyectos('search');
+		$model=new Dashboard('search');
 		$model->unsetAttributes();  // clear any default values
-		$model->estado = 'I'; //prioriza los iniciados
-		if(isset($_GET['Proyectos']))
-			$model->attributes=$_GET['Proyectos'];
+		if(isset($_GET['Dashboard']))
+			$model->attributes=$_GET['Dashboard'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -173,12 +148,12 @@ class ProyectosController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Proyectos the loaded model
+	 * @return Dashboard the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Proyectos::model()->findByPk($id);
+		$model=Dashboard::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -186,33 +161,14 @@ class ProyectosController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Proyectos $model the model to be validated
+	 * @param Dashboard $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='proyectos-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='dashboard-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
-	}
-
-	public function actionModificaEstado($id,$estado){
-		$retorno = array('status'=>false,'message'=>'Error al procesar la solicitud');
-		$model = $this->loadModel($id);
-		if(!$model){
-			echo CJSON::encode($retorno);
-			Yii::app()->end();
-		}
-		$model->estado = $estado;
-		if(!$model->save()){
-			echo "<pre>";
-			print_r($model->getErrors());
-			exit;
-		}
-		$retorno['status'] = true;
-		$retorno['message'] = 'Se ha modificado el estado del proyecto correctamente.';
-		echo CJSON::encode($retorno);
-		Yii::app()->end();
 	}
 }

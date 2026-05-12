@@ -24,6 +24,9 @@ class Proyectos extends CActiveRecord
 	public $nombreCliente;
 	public $gananciaEstimada;
 	public $gananciaReal;
+	public $totalTarifa;
+	public $totalGEstimada;
+	public $totalGReal;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -62,7 +65,7 @@ class Proyectos extends CActiveRecord
 			array('cliente_id', 'required'),
 			array('cliente_id', 'numerical', 'integerOnly'=>true),
 			array('nombre', 'length', 'max'=>40),
-			array('estado', 'length', 'max'=>1),
+			array('estado', 'length', 'max'=>2),
 			array('tarifa_base', 'length', 'max'=>10),
 			array('descripcion, fecha_inicio, fecha_fin, created_at', 'safe'),
 			// The following rule is used by search().
@@ -117,7 +120,8 @@ class Proyectos extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+		//iniciamos variables para el calculo del footer
+		$this->initValTareas();
 
 		$criteria=new CDbCriteria;
 
@@ -130,10 +134,20 @@ class Proyectos extends CActiveRecord
 		$criteria->compare('estado',$this->estado,true);
 		$criteria->compare('tarifa_base',$this->tarifa_base,true);
 		$criteria->compare('created_at',$this->created_at,true);
-
-		return new CActiveDataProvider($this, array(
+		
+		$this->totalTarifa       	= $this->getSuma('tarifa_base', $criteria);
+		//footer que necesitan el foreach para procesarse.
+		$datos = new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+
+		foreach($datos->getData() as $valueDatos){
+			$gananciaEstimada      = Utilerias::quitarFormatoMoneda(self::getGananciaAdmin('horas_estimadas',$valueDatos));
+			$gananciaReal          = Utilerias::quitarFormatoMoneda(self::getGananciaAdmin('horas_reales',$valueDatos));
+			$this->totalGEstimada += $gananciaEstimada;
+			$this->totalGReal     += $gananciaReal;
+		}
+		return $datos;
 	}
 
 	/**
@@ -162,4 +176,39 @@ class Proyectos extends CActiveRecord
 		$moneda  = 'MXN';
 		return Utilerias::getFormatoMoneda($retorno, $moneda);
 	}
+
+	public static function getGananciaAdmin($tipo,$model){
+		$retorno = 0;
+		$critTareas = new CDbCriteria;
+		$critTareas->compare('proyecto_id',$model->id);
+		$tareas = Tareas::model()->findAll($critTareas);
+		if(!$tareas){
+			return $retorno;
+		}
+		foreach($tareas as $tarea){
+			$retorno += $tarea->$tipo;
+		}
+		$retorno = $model->tarifa_base * $retorno;
+		$moneda  = 'MXN';
+		return Utilerias::getFormatoMoneda($retorno, $moneda);
+	}
+		
+	public function initValTareas(){
+		$this->totalTarifa			= 0;
+		$this->totalGEstimada		= 0;
+		$this->totalGReal			= 0;
+	}
+
+	private function getSuma($columna, CDbCriteria $criteria)
+    {
+        $tabla = $this->tableName();
+
+        $sql = "SELECT SUM(`{$columna}`) FROM `{$tabla}`";
+
+        if (!empty($criteria->condition))
+            $sql .= " WHERE " . $criteria->condition;
+
+        return (float) Yii::app()->db->createCommand($sql)
+            ->queryScalar($criteria->params) ?: 0;
+    }
 }

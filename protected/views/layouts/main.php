@@ -60,7 +60,6 @@
 	<div id="footer">
 		Copyright &copy; <?php echo date('Y'); ?> by <?= Yii::app()->params['adminName']; ?>.<br/>
 		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->
 
 </div><!-- page -->

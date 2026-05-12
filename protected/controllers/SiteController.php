@@ -59,8 +59,8 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$user = Yii::app()->user->id;
-		$this->render('index');
+		$dashboards = Dashboard::dashboard();
+		$this->render('index', array('dashboards'	=>	$dashboards));
 	}
 
 	/**
