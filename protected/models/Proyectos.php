@@ -65,7 +65,7 @@ class Proyectos extends CActiveRecord
 			array('cliente_id', 'required'),
 			array('cliente_id', 'numerical', 'integerOnly'=>true),
 			array('nombre', 'length', 'max'=>40),
-			array('estado', 'length', 'max'=>1),
+			array('estado', 'length', 'max'=>2),
 			array('tarifa_base', 'length', 'max'=>10),
 			array('descripcion, fecha_inicio, fecha_fin, created_at', 'safe'),
 			// The following rule is used by search().

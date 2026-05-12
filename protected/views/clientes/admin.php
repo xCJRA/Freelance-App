@@ -8,7 +8,7 @@
 <div class="container-fluid">
 	<div class="card">
 		<!--HEADER-->  
-		<div class="card-header d-flex justify-content-between align-items-center">
+		<div class="card-header justify-content-between align-items-center">
 			<h3 class="card-title mb-0">Listado de clientes</h3>
 			<div class="card-tools">
 				<div class="dropdown">

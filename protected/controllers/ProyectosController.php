@@ -39,6 +39,10 @@ class ProyectosController extends Controller
 				'actions'=>array('admin','delete'),
                 'expression' => 'Yii::app()->user->checkAccess("admin")',
 			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('modificaEstado'),
+                'expression' => 'Yii::app()->user->checkAccess("admin")',
+			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -191,5 +195,24 @@ class ProyectosController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+	public function actionModificaEstado($id,$estado){
+		$retorno = array('status'=>false,'message'=>'Error al procesar la solicitud');
+		$model = $this->loadModel($id);
+		if(!$model){
+			echo CJSON::encode($retorno);
+			Yii::app()->end();
+		}
+		$model->estado = $estado;
+		if(!$model->save()){
+			echo "<pre>";
+			print_r($model->getErrors());
+			exit;
+		}
+		$retorno['status'] = true;
+		$retorno['message'] = 'Se ha modificado el estado del proyecto correctamente.';
+		echo CJSON::encode($retorno);
+		Yii::app()->end();
 	}
 }
