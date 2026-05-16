@@ -1,7 +1,7 @@
 <!--HEADER-->  
 <div class="card-body d-flex justify-content-between align-items-center">
     <h4 class="card-title mb-0">Listado de tareas</h4>
-    <div class="card-tools">
+    <div class="card-tools ms-auto">
         <div class="dropdown">
             <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-card-list"></i>

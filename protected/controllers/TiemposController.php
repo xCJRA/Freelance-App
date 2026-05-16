@@ -66,6 +66,7 @@ class TiemposController extends Controller
 		$model=new Tiempos;
 		$model->fecha = date('Y-m-d');
 		$model->horas = 1;
+		$model->facturable = 1;
 		if(isset($_GET['proyecto_id'])){
 			$model->proyecto_id = $_GET['proyecto_id'];
 			$model->proyecto_nombre = Utilerias::getName($model->proyecto_id,'nombre',new Proyectos());
